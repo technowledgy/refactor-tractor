@@ -1,0 +1,8 @@
+# state
+.devenv*
+devenv.local.nix
+.direnv
+
+# symlinks
+.pre-commit-config.yaml
+sgconfig.yml
