@@ -40,12 +40,24 @@ in
     description = "Find (and replace) all substituteAll calls in nixpkgs.";
   };
 
+  scripts.lint-replace-vars = {
+    exec = ''
+      def main [nixpkgs: string] {
+          ast-grep scan --rule rules/no-broken-replace-vars.yml $nixpkgs
+      }
+    '';
+    package = pkgs.nushell;
+    binary = "nu";
+    description = "Lint replaceVars for bad usage patterns.";
+  };
+
   enterShell = ''
     ln -sf ${sgconfig} sgconfig.yml
 
     echo "Available scripts:"
     echo "  no-substitute-all <path-to-nixpkgs>"
     echo "  no-substitute-all <path-to-nixpkgs> --write"
+    echo "  lint-replace-vars <path-to-nixpkgs>"
   '';
 
   enterTest = ''

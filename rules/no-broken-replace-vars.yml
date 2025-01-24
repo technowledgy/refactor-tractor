@@ -1,0 +1,44 @@
+id: no-broken-replace-vars-placeholder
+language: nix
+
+severity: error
+message: Nix placeholders can't be passed to replaceVars / replaceVarsWith
+note: |-
+  They will not work as expected, because they will reference the outputs
+  of the derivation that replaceVars creates, not the "caller".
+
+# TODO: Move this util + rule into a global utility once
+# https://github.com/ast-grep/ast-grep/issues/1297
+# is solved.
+utils:
+  with-replacements:
+    kind: binding
+    all:
+    - has:
+        field: attrpath
+        regex: ^replacements$
+    - has:
+        field: expression
+        pattern: _REPLACEMENTS
+
+rule:
+  any:
+  - pattern: replaceVars _SRC _REPLACEMENTS
+  - pattern: replaceVarsWith { ___ }
+    has:
+      stopBy: end
+      matches: with-replacements
+  - pattern: _PREFIX.replaceVars _SRC _REPLACEMENTS
+  - pattern: _PREFIX.replaceVarsWith { ___ }
+    has:
+      stopBy: end
+      matches: with-replacements
+
+constraints:
+  REPLACEMENTS:
+    has:
+      stopBy: end
+      kind: binding
+      has:
+        field: expression
+        pattern: placeholder _OUT

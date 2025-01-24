@@ -1,0 +1,15 @@
+id: no-broken-replace-vars-placeholder
+valid:
+- replaceVars ./file { placeholder = "something"; }
+- replaceVars ./file { something = "placeholder"; }
+- replaceVarsWith { src = ./file; replacements = { placeholder = "something"; }; }
+- replaceVarsWith { replacements = { something = "placeholder"; }; src = ./file; }
+# somewhere else, not in replaceVars
+- '{ something = placeholder "out"; }'
+invalid:
+- replaceVars ./file { something = placeholder "out"; }
+- replaceVars ./file { something = placeholder "other"; }
+- replaceVars ./file { not-the = "first"; something = placeholder "out"; }
+- replaceVarsWith { src = ./file; replacements = { something = placeholder "out"; }; }
+- replaceVarsWith { replacements = { something = placeholder "other"; }; src = ./file; }
+- replaceVarsWith { src = ./file; replacements = { not-the = "first"; something = placeholder "out"; }; }

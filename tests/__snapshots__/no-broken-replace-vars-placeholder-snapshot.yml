@@ -1,0 +1,122 @@
+id: no-broken-replace-vars-placeholder
+snapshots:
+  replaceVars ./file { not-the = "first"; something = placeholder "out"; }:
+    labels:
+    - source: replaceVars ./file { not-the = "first"; something = placeholder "out"; }
+      style: primary
+      start: 0
+      end: 72
+    - source: placeholder "out"
+      style: secondary
+      start: 52
+      end: 69
+    - source: something = placeholder "out";
+      style: secondary
+      start: 40
+      end: 70
+  replaceVars ./file { something = placeholder "other"; }:
+    labels:
+    - source: replaceVars ./file { something = placeholder "other"; }
+      style: primary
+      start: 0
+      end: 55
+    - source: placeholder "other"
+      style: secondary
+      start: 33
+      end: 52
+    - source: something = placeholder "other";
+      style: secondary
+      start: 21
+      end: 53
+  replaceVars ./file { something = placeholder "out"; }:
+    labels:
+    - source: replaceVars ./file { something = placeholder "out"; }
+      style: primary
+      start: 0
+      end: 53
+    - source: placeholder "out"
+      style: secondary
+      start: 33
+      end: 50
+    - source: something = placeholder "out";
+      style: secondary
+      start: 21
+      end: 51
+  replaceVarsWith { replacements = { something = placeholder "other"; }; src = ./file; }:
+    labels:
+    - source: replaceVarsWith { replacements = { something = placeholder "other"; }; src = ./file; }
+      style: primary
+      start: 0
+      end: 86
+    - source: replacements
+      style: secondary
+      start: 18
+      end: 30
+    - source: '{ something = placeholder "other"; }'
+      style: secondary
+      start: 33
+      end: 69
+    - source: replacements = { something = placeholder "other"; };
+      style: secondary
+      start: 18
+      end: 70
+    - source: placeholder "other"
+      style: secondary
+      start: 47
+      end: 66
+    - source: something = placeholder "other";
+      style: secondary
+      start: 35
+      end: 67
+  replaceVarsWith { src = ./file; replacements = { not-the = "first"; something = placeholder "out"; }; }:
+    labels:
+    - source: replaceVarsWith { src = ./file; replacements = { not-the = "first"; something = placeholder "out"; }; }
+      style: primary
+      start: 0
+      end: 103
+    - source: replacements
+      style: secondary
+      start: 32
+      end: 44
+    - source: '{ not-the = "first"; something = placeholder "out"; }'
+      style: secondary
+      start: 47
+      end: 100
+    - source: replacements = { not-the = "first"; something = placeholder "out"; };
+      style: secondary
+      start: 32
+      end: 101
+    - source: placeholder "out"
+      style: secondary
+      start: 80
+      end: 97
+    - source: something = placeholder "out";
+      style: secondary
+      start: 68
+      end: 98
+  replaceVarsWith { src = ./file; replacements = { something = placeholder "out"; }; }:
+    labels:
+    - source: replaceVarsWith { src = ./file; replacements = { something = placeholder "out"; }; }
+      style: primary
+      start: 0
+      end: 84
+    - source: replacements
+      style: secondary
+      start: 32
+      end: 44
+    - source: '{ something = placeholder "out"; }'
+      style: secondary
+      start: 47
+      end: 81
+    - source: replacements = { something = placeholder "out"; };
+      style: secondary
+      start: 32
+      end: 82
+    - source: placeholder "out"
+      style: secondary
+      start: 61
+      end: 78
+    - source: something = placeholder "out";
+      style: secondary
+      start: 49
+      end: 79
