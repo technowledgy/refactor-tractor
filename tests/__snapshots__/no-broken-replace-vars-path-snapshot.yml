@@ -1,0 +1,42 @@
+id: no-broken-replace-vars-path
+snapshots:
+  replaceVars ./file { something = ./file; }:
+    labels:
+    - source: replaceVars ./file { something = ./file; }
+      style: primary
+      start: 0
+      end: 42
+    - source: ./file
+      style: secondary
+      start: 33
+      end: 39
+    - source: something = ./file;
+      style: secondary
+      start: 21
+      end: 40
+  replaceVarsWith { src = ./file; replacements = { something = ./file; }; }:
+    labels:
+    - source: replaceVarsWith { src = ./file; replacements = { something = ./file; }; }
+      style: primary
+      start: 0
+      end: 73
+    - source: replacements
+      style: secondary
+      start: 32
+      end: 44
+    - source: '{ something = ./file; }'
+      style: secondary
+      start: 47
+      end: 70
+    - source: replacements = { something = ./file; };
+      style: secondary
+      start: 32
+      end: 71
+    - source: ./file
+      style: secondary
+      start: 61
+      end: 67
+    - source: something = ./file;
+      style: secondary
+      start: 49
+      end: 68

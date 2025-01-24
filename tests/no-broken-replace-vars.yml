@@ -13,3 +13,15 @@ invalid:
 - replaceVarsWith { src = ./file; replacements = { something = placeholder "out"; }; }
 - replaceVarsWith { replacements = { something = placeholder "other"; }; src = ./file; }
 - replaceVarsWith { src = ./file; replacements = { not-the = "first"; something = placeholder "out"; }; }
+
+---
+
+id: no-broken-replace-vars-path
+valid:
+- replaceVars ./file { something = "./file"; }
+- replaceVarsWith { src = ./file; replacements = { something = "./file"; }; }
+# somewhere else, not in replaceVars
+- '{ something = ./file; }'
+invalid:
+- replaceVars ./file { something = ./file; }
+- replaceVarsWith { src = ./file; replacements = { something = ./file; }; }
