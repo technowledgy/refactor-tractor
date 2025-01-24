@@ -1,0 +1,164 @@
+id: no-substitute-all-nix-apply
+snapshots:
+  ? |-
+    substituteAll {
+      inherit (stdenv) cc;
+
+      src = ./script.sh;
+      PATH = "/some/where/else";
+
+      some = "thing";
+    }
+  : fixed: |-
+      replaceVars ./script.sh {
+        inherit (stdenv) cc;
+
+        PATH = "/some/where/else";
+
+        some = "thing";
+      }
+    labels:
+    - source: |-
+        substituteAll {
+          inherit (stdenv) cc;
+
+          src = ./script.sh;
+          PATH = "/some/where/else";
+
+          some = "thing";
+        }
+      style: primary
+      start: 0
+      end: 110
+    - source: src
+      style: secondary
+      start: 42
+      end: 45
+    - source: ./script.sh
+      style: secondary
+      start: 48
+      end: 59
+    - source: src = ./script.sh;
+      style: secondary
+      start: 42
+      end: 60
+  ? |-
+    substituteAll {
+      name = "custom-script";
+      inherit (stdenv) cc;
+
+      src = ./script.sh;
+      PATH = "/some/where/else";
+
+      some = "thing";
+    }
+  : fixed: |-
+      replaceVars ./script.sh {
+        inherit (stdenv) cc;
+
+        PATH = "/some/where/else";
+
+        some = "thing";
+      }
+    labels:
+    - source: |-
+        substituteAll {
+          name = "custom-script";
+          inherit (stdenv) cc;
+
+          src = ./script.sh;
+          PATH = "/some/where/else";
+
+          some = "thing";
+        }
+      style: primary
+      start: 0
+      end: 136
+    - source: src
+      style: secondary
+      start: 68
+      end: 71
+    - source: ./script.sh
+      style: secondary
+      start: 74
+      end: 85
+    - source: src = ./script.sh;
+      style: secondary
+      start: 68
+      end: 86
+  ? "substituteAll { \n  src = ./script.sh;\n  PATH = \"/some/where/else\";\n}"
+  : fixed: "replaceVars ./script.sh { \n  \n  PATH = \"/some/where/else\";\n}"
+    labels:
+    - source: "substituteAll { \n  src = ./script.sh;\n  PATH = \"/some/where/else\";\n}"
+      style: primary
+      start: 0
+      end: 68
+    - source: src
+      style: secondary
+      start: 19
+      end: 22
+    - source: ./script.sh
+      style: secondary
+      start: 25
+      end: 36
+    - source: src = ./script.sh;
+      style: secondary
+      start: 19
+      end: 37
+  substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }:
+    fixed: replaceVars ./script.sh { inherit runtimeShell; PATH = "/some/where/else"; }
+    labels:
+    - source: substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }
+      style: primary
+      start: 0
+      end: 85
+    - source: src
+      style: secondary
+      start: 38
+      end: 41
+    - source: ./script.sh
+      style: secondary
+      start: 44
+      end: 55
+    - source: src = ./script.sh;
+      style: secondary
+      start: 38
+      end: 56
+  substituteAll { inherit runtimeShell; src = ./script.sh; }:
+    fixed: replaceVars ./script.sh { inherit runtimeShell; }
+    labels:
+    - source: substituteAll { inherit runtimeShell; src = ./script.sh; }
+      style: primary
+      start: 0
+      end: 58
+    - source: src
+      style: secondary
+      start: 38
+      end: 41
+    - source: ./script.sh
+      style: secondary
+      start: 44
+      end: 55
+    - source: src = ./script.sh;
+      style: secondary
+      start: 38
+      end: 56
+  substituteAll { src = ./script.sh; inherit runtimeShell; }:
+    fixed: replaceVars ./script.sh { inherit runtimeShell; }
+    labels:
+    - source: substituteAll { src = ./script.sh; inherit runtimeShell; }
+      style: primary
+      start: 0
+      end: 58
+    - source: src
+      style: secondary
+      start: 16
+      end: 19
+    - source: ./script.sh
+      style: secondary
+      start: 22
+      end: 33
+    - source: src = ./script.sh;
+      style: secondary
+      start: 16
+      end: 34

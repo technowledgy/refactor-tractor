@@ -1,0 +1,43 @@
+id: no-substitute-all-nix-apply
+valid:
+- replaceVars ./script.sh { inherit runtimeShell; }
+- |-
+  stdenv.mkDerivation {
+    buildPhase = ''
+      substituteAll ${./script.sh} $out/script.sh
+    '';
+  }
+# see other rule
+- "{ substituteAll }:"
+# can't replace automatically, needs to be done manually
+- substituteAll { dir = "bin"; src = ./script.sh; inherit runtimeShell; }
+invalid:
+- substituteAll { src = ./script.sh; inherit runtimeShell; }
+- substituteAll { inherit runtimeShell; src = ./script.sh; }
+- substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }
+# needs to remove the whole line and not leave a blank one..
+# .. while still keeping other blank lines!
+- |-
+  substituteAll {
+    name = "custom-script";
+    inherit (stdenv) cc;
+
+    src = ./script.sh;
+    PATH = "/some/where/else";
+
+    some = "thing";
+  }
+
+---
+
+id: no-substitute-all-nix-arg
+valid:
+- "{ replaceVars }:"
+- "{ stdenv, replaceVars }:"
+- "{ stdenv, replaceVars, lib }:"
+# see other rule
+- substituteAll { src = ./script.sh; inherit runtimeShell; }
+invalid:
+- "{ substituteAll }:"
+- "{ stdenv, substituteAll }:"
+- "{ stdenv, substituteAll, lib }:"

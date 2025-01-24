@@ -1,0 +1,35 @@
+id: no-substitute-all-nix-arg
+snapshots:
+  '{ stdenv, substituteAll }:':
+    fixed: '{ stdenv, replaceVars }:'
+    labels:
+    - source: substituteAll
+      style: primary
+      start: 10
+      end: 23
+    - source: '{ stdenv, substituteAll }'
+      style: secondary
+      start: 0
+      end: 25
+  '{ stdenv, substituteAll, lib }:':
+    fixed: '{ stdenv, replaceVars, lib }:'
+    labels:
+    - source: substituteAll
+      style: primary
+      start: 10
+      end: 23
+    - source: '{ stdenv, substituteAll, lib }'
+      style: secondary
+      start: 0
+      end: 30
+  '{ substituteAll }:':
+    fixed: '{ replaceVars }:'
+    labels:
+    - source: substituteAll
+      style: primary
+      start: 2
+      end: 15
+    - source: '{ substituteAll }'
+      style: secondary
+      start: 0
+      end: 17
