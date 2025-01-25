@@ -45,6 +45,7 @@ def main [path: string] {
                          pkgs/development/tools/ocaml/merlin/4.x.nix
                          # expression generating replacements
                          pkgs/development/python-modules/pysdl2/default.nix
+                         pkgs/kde/plasma/kinfocenter/default.nix
                      ] | any {|exclusion| $match.file | str ends-with $exclusion }) {
                          $match
                      } else {
