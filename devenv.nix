@@ -73,6 +73,7 @@ in
   '';
 
   git-hooks.hooks = {
+    actionlint.enable = true;
     nixfmt-rfc-style.enable = true;
     yamlfmt.enable = true;
   };
