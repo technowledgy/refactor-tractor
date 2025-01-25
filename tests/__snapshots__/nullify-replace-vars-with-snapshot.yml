@@ -18,7 +18,7 @@ snapshots:
       end: 59
   replaceVarsWith { src = ./file; replacements = { inherit x y; }; dir = "bin"; }:
     fixed: |
-      replaceVarsWith { src = ./file; replacements = { x = null; y = null; }; dir = "bin"; }
+      replaceVarsWith { src = ./file; replacements = { x = null; y = null; };  }
     labels:
     - source: replaceVarsWith { src = ./file; replacements = { inherit x y; }; dir = "bin"; }
       style: primary

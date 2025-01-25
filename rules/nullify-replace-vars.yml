@@ -118,12 +118,23 @@ rewriters:
         - nullify-inherit
   fix: replacements = $NULLED_REPLACEMENTS;
 
+- id: remove-other-args
+  rule:
+    kind: binding
+    not:
+      any:
+      - has:
+          field: attrpath
+          regex: ^src|replacements$
+  fix: ""
+
 transform:
   NULLED_ARGS:
     rewrite:
       source: $ARGS
       rewriters:
       - nullify-replacements
+      - remove-other-args
 
 fix: |
   replaceVarsWith $NULLED_ARGS
