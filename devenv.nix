@@ -51,6 +51,13 @@ in
     description = "Lint replaceVars for bad usage patterns.";
   };
 
+  scripts.build-replace-vars = {
+    exec = builtins.readFile ./scripts/build-replace-vars.nu;
+    package = pkgs.nushell;
+    binary = "nu";
+    description = "Check whether all uses of replaceVars and replaceVarsWith build fine with their replacements.";
+  };
+
   enterShell = ''
     ln -sf ${sgconfig} sgconfig.yml
 
@@ -58,6 +65,7 @@ in
     echo "  no-substitute-all <path-to-nixpkgs>"
     echo "  no-substitute-all <path-to-nixpkgs> --write"
     echo "  lint-replace-vars <path-to-nixpkgs>"
+    echo "  build-replace-vars <path-to-nixpkgs>"
   '';
 
   enterTest = ''

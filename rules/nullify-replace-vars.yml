@@ -1,0 +1,129 @@
+id: nullify-replace-vars
+language: nix
+
+rule:
+  any:
+  - pattern: replaceVars _SRC _REPLACEMENTS
+  - pattern: _PREFIX.replaceVars _SRC _REPLACEMENTS
+
+rewriters:
+- id: nullify-binding
+  rule:
+    kind: binding
+    has:
+      field: attrpath
+      pattern: _NAME
+  fix: $NAME = null;
+
+- id: nullify-attr
+  rule:
+    kind: identifier
+    pattern: _NAME
+  fix: $NAME = null;
+
+- id: nullify-inherit
+  rule:
+    any:
+    - kind: inherit
+      has:
+        field: attrs
+        kind: inherited_attrs
+        pattern: _INHERITED_ATTRS
+    - kind: inherit_from
+      has:
+        field: attrs
+        kind: inherited_attrs
+        pattern: _INHERITED_ATTRS
+  transform:
+    NULLED_INHERIT:
+      rewrite:
+        source: $INHERITED_ATTRS
+        rewriters:
+        - nullify-attr
+  fix: $NULLED_INHERIT
+
+transform:
+  NULLED_REPLACEMENTS:
+    rewrite:
+      source: $REPLACEMENTS
+      rewriters:
+      - nullify-binding
+      - nullify-inherit
+
+fix: |
+  replaceVars $SRC $NULLED_REPLACEMENTS
+
+---
+
+id: nullify-replace-vars-with
+language: nix
+
+rule:
+  any:
+  - pattern: replaceVarsWith _ARGS
+  - pattern: _PREFIX.replaceVarsWith _ARGS
+
+rewriters:
+- id: nullify-binding
+  rule:
+    kind: binding
+    has:
+      field: attrpath
+      pattern: _NAME
+  fix: $NAME = null;
+
+- id: nullify-attr
+  rule:
+    kind: identifier
+    pattern: _NAME
+  fix: $NAME = null;
+
+- id: nullify-inherit
+  rule:
+    any:
+    - kind: inherit
+      has:
+        field: attrs
+        kind: inherited_attrs
+        pattern: _INHERITED_ATTRS
+    - kind: inherit_from
+      has:
+        field: attrs
+        kind: inherited_attrs
+        pattern: _INHERITED_ATTRS
+  transform:
+    NULLED_INHERIT:
+      rewrite:
+        source: $INHERITED_ATTRS
+        rewriters:
+        - nullify-attr
+  fix: $NULLED_INHERIT
+
+- id: nullify-replacements
+  rule:
+    kind: binding
+    all:
+    - has:
+        field: attrpath
+        regex: ^replacements$
+    - has:
+        field: expression
+        pattern: _REPLACEMENTS
+  transform:
+    NULLED_REPLACEMENTS:
+      rewrite:
+        source: $REPLACEMENTS
+        rewriters:
+        - nullify-binding
+        - nullify-inherit
+  fix: replacements = $NULLED_REPLACEMENTS;
+
+transform:
+  NULLED_ARGS:
+    rewrite:
+      source: $ARGS
+      rewriters:
+      - nullify-replacements
+
+fix: |
+  replaceVarsWith $NULLED_ARGS

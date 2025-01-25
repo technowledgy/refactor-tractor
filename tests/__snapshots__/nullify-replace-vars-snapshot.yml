@@ -1,0 +1,34 @@
+id: nullify-replace-vars
+snapshots:
+  pkgs.replaceVars ./file { z = "z"; }:
+    fixed: |
+      replaceVars ./file { z = null; }
+    labels:
+    - source: pkgs.replaceVars ./file { z = "z"; }
+      style: primary
+      start: 0
+      end: 36
+  replaceVars ./file { inherit (pkgs) x y; }:
+    fixed: |
+      replaceVars ./file { x = null; y = null; }
+    labels:
+    - source: replaceVars ./file { inherit (pkgs) x y; }
+      style: primary
+      start: 0
+      end: 42
+  replaceVars ./file { inherit x y; }:
+    fixed: |
+      replaceVars ./file { x = null; y = null; }
+    labels:
+    - source: replaceVars ./file { inherit x y; }
+      style: primary
+      start: 0
+      end: 35
+  replaceVars ./file { x = "x"; y = "y"; }:
+    fixed: |
+      replaceVars ./file { x = null; y = null; }
+    labels:
+    - source: replaceVars ./file { x = "x"; y = "y"; }
+      style: primary
+      start: 0
+      end: 40

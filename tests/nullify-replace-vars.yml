@@ -1,0 +1,19 @@
+id: nullify-replace-vars
+# No valid section here, we're just interesting in testing snapshots
+# for the replacements of different scenarios.
+invalid:
+- replaceVars ./file { x = "x"; y = "y"; }
+- pkgs.replaceVars ./file { z = "z"; }
+- replaceVars ./file { inherit x y; }
+- replaceVars ./file { inherit (pkgs) x y; }
+
+---
+
+id: nullify-replace-vars-with
+# No valid section here, we're just interesting in testing snapshots
+# for the replacements of different scenarios.
+invalid:
+- replaceVarsWith { src = ./file; replacements = { x = "x"; y = "y"; }; }
+- pkgs.replaceVarsWith { replacements = { z = "z"; }; src = ./file; }
+- replaceVarsWith { src = ./file; replacements = { inherit x y; }; dir = "bin"; }
+- replaceVarsWith { replacements = { inherit (pkgs) x y; }; }

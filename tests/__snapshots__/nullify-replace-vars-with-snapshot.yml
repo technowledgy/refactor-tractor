@@ -1,0 +1,34 @@
+id: nullify-replace-vars-with
+snapshots:
+  pkgs.replaceVarsWith { replacements = { z = "z"; }; src = ./file; }:
+    fixed: |
+      replaceVarsWith { replacements = { z = null; }; src = ./file; }
+    labels:
+    - source: pkgs.replaceVarsWith { replacements = { z = "z"; }; src = ./file; }
+      style: primary
+      start: 0
+      end: 67
+  replaceVarsWith { replacements = { inherit (pkgs) x y; }; }:
+    fixed: |
+      replaceVarsWith { replacements = { x = null; y = null; }; }
+    labels:
+    - source: replaceVarsWith { replacements = { inherit (pkgs) x y; }; }
+      style: primary
+      start: 0
+      end: 59
+  replaceVarsWith { src = ./file; replacements = { inherit x y; }; dir = "bin"; }:
+    fixed: |
+      replaceVarsWith { src = ./file; replacements = { x = null; y = null; }; dir = "bin"; }
+    labels:
+    - source: replaceVarsWith { src = ./file; replacements = { inherit x y; }; dir = "bin"; }
+      style: primary
+      start: 0
+      end: 79
+  replaceVarsWith { src = ./file; replacements = { x = "x"; y = "y"; }; }:
+    fixed: |
+      replaceVarsWith { src = ./file; replacements = { x = null; y = null; }; }
+    labels:
+    - source: replaceVarsWith { src = ./file; replacements = { x = "x"; y = "y"; }; }
+      style: primary
+      start: 0
+      end: 71
