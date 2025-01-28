@@ -33,7 +33,7 @@ constraints:
         kind: binding
         has:
           field: attrpath
-          regex: ^dir|isExecutable$
+          regex: ^(dir|isExecutable)$
 
 rewriters:
 - id: remove-src-binding

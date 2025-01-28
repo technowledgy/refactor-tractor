@@ -125,7 +125,7 @@ rewriters:
       any:
       - has:
           field: attrpath
-          regex: ^src|replacements$
+          regex: ^(src|replacements)$
   fix: ""
 
 transform:
