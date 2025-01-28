@@ -1,0 +1,25 @@
+id: bash
+language: nix
+
+rule:
+  kind: string_fragment
+  pattern: _CONTENT
+  not:
+    inside:
+      field: argument
+      kind: apply_expression
+      has:
+        field: function
+        regex: toFile
+  inside:
+    stopBy: end
+    kind: apply_expression
+    has:
+      field: function
+      all:
+      - has:
+          field: function
+          regex: toFile
+      - has:
+          field: argument
+          regex: '\.(sh|bash)"$'

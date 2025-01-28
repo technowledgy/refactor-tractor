@@ -14,6 +14,48 @@ let
         libraryPath: ${pkgs.vimPlugins.nvim-treesitter-parsers.nix}/parser/nix.so
         extensions: [nix]
         expandoChar: _
+    languageInjections:
+    - hostLanguage: nix
+      injected: bash
+      rule:
+        kind: string_fragment
+        pattern: _CONTENT
+        any:
+        - inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              # mkDerivation args
+              regex: ^pre[A-Z]|^post[A-Z]|[a-z]Phase$|^buildCommand$|^extraBuildCommands$
+        - inside:
+            field: argument
+            stopBy: end
+            any:
+            - kind: apply_expression
+              has:
+                field: function
+                has:
+                  field: function
+                  has:
+                    field: function
+                    regex: ^runCommand$
+            - kind: apply_expression
+              has:
+                field: function
+                has:
+                  field: function
+                  regex: ^runCommandWith$
+            - kind: apply_expression
+              has:
+                field: function
+                all:
+                - has:
+                    field: function
+                    regex: ^builtins.toFile|toFile$
+                - has:
+                    field: argument
+                    regex: '\.(sh|bash)"$'
   '';
 in
 {
