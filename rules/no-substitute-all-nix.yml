@@ -69,6 +69,77 @@ fix: |-
 
 ---
 
+id: no-substitute-all-nix-apply-prefix
+language: nix
+
+severity: error
+message: substituteAll has been replaced with replaceVars / replaceVarsWith
+note: |-
+  substituteAll is evil. See:
+  https://github.com/NixOS/nixpkgs/issues/237216
+
+utils:
+  src-binding:
+    kind: binding
+    all:
+    - has:
+        field: attrpath
+        regex: ^src$
+    - has:
+        field: expression
+        pattern: _SRC
+
+rule:
+  pattern: _PREFIX.substituteAll _ARGS
+  has:
+    stopBy: end
+    matches: src-binding
+
+constraints:
+  ARGS:
+    # Exclude those with dir/isExecutable, they need replaceVarsWith.
+    not:
+      has:
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^(dir|isExecutable)$
+
+rewriters:
+- id: remove-src-binding
+  rule:
+    matches: src-binding
+  fix: "@REMOVED_BINDING@"
+
+- id: remove-name-binding
+  rule:
+    kind: binding
+    all:
+    - has:
+        field: attrpath
+        regex: ^name$
+  fix: "@REMOVED_BINDING@"
+
+transform:
+  REPLACEMENTS:
+    rewrite:
+      source: $ARGS
+      rewriters:
+      - remove-src-binding
+      - remove-name-binding
+  REPLACEMENTS_STRIPPED:
+    # remove left-over blank lines
+    replace:
+      source: $REPLACEMENTS
+      replace: "\n? *@REMOVED_BINDING@( |\n|)"
+      by: "$1"
+
+fix: |-
+  $PREFIX.replaceVars $SRC $REPLACEMENTS_STRIPPED
+
+---
+
 id: no-substitute-all-nix-arg
 language: nix
 

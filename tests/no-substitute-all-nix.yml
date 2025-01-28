@@ -30,6 +30,38 @@ invalid:
 
 ---
 
+id: no-substitute-all-nix-apply-prefix
+valid:
+- replaceVars ./script.sh { inherit runtimeShell; }
+- |-
+  stdenv.mkDerivation {
+    buildPhase = ''
+      substituteAll ${./script.sh} $out/script.sh
+    '';
+  }
+# see other rule
+- "{ substituteAll }:"
+# can't replace automatically, needs to be done manually
+- pkgs.substituteAll { dir = "bin"; src = ./script.sh; inherit runtimeShell; }
+invalid:
+- pkgs.substituteAll { src = ./script.sh; inherit runtimeShell; }
+- pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; }
+- pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }
+# needs to remove the whole line and not leave a blank one..
+# .. while still keeping other blank lines!
+- |-
+  pkgs.substituteAll {
+    name = "custom-script";
+    inherit (stdenv) cc;
+
+    src = ./script.sh;
+    PATH = "/some/where/else";
+
+    some = "thing";
+  }
+
+---
+
 id: no-substitute-all-nix-arg
 valid:
 - "{ replaceVars }:"

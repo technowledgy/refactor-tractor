@@ -1,0 +1,103 @@
+id: no-substitute-all-nix-apply-prefix
+snapshots:
+  ? |-
+    pkgs.substituteAll {
+      name = "custom-script";
+      inherit (stdenv) cc;
+
+      src = ./script.sh;
+      PATH = "/some/where/else";
+
+      some = "thing";
+    }
+  : fixed: |-
+      pkgs.replaceVars ./script.sh {
+        inherit (stdenv) cc;
+
+        PATH = "/some/where/else";
+
+        some = "thing";
+      }
+    labels:
+    - source: |-
+        pkgs.substituteAll {
+          name = "custom-script";
+          inherit (stdenv) cc;
+
+          src = ./script.sh;
+          PATH = "/some/where/else";
+
+          some = "thing";
+        }
+      style: primary
+      start: 0
+      end: 141
+    - source: src
+      style: secondary
+      start: 73
+      end: 76
+    - source: ./script.sh
+      style: secondary
+      start: 79
+      end: 90
+    - source: src = ./script.sh;
+      style: secondary
+      start: 73
+      end: 91
+  pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }:
+    fixed: pkgs.replaceVars ./script.sh { inherit runtimeShell; PATH = "/some/where/else"; }
+    labels:
+    - source: pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; PATH = "/some/where/else"; }
+      style: primary
+      start: 0
+      end: 90
+    - source: src
+      style: secondary
+      start: 43
+      end: 46
+    - source: ./script.sh
+      style: secondary
+      start: 49
+      end: 60
+    - source: src = ./script.sh;
+      style: secondary
+      start: 43
+      end: 61
+  pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; }:
+    fixed: pkgs.replaceVars ./script.sh { inherit runtimeShell; }
+    labels:
+    - source: pkgs.substituteAll { inherit runtimeShell; src = ./script.sh; }
+      style: primary
+      start: 0
+      end: 63
+    - source: src
+      style: secondary
+      start: 43
+      end: 46
+    - source: ./script.sh
+      style: secondary
+      start: 49
+      end: 60
+    - source: src = ./script.sh;
+      style: secondary
+      start: 43
+      end: 61
+  pkgs.substituteAll { src = ./script.sh; inherit runtimeShell; }:
+    fixed: pkgs.replaceVars ./script.sh { inherit runtimeShell; }
+    labels:
+    - source: pkgs.substituteAll { src = ./script.sh; inherit runtimeShell; }
+      style: primary
+      start: 0
+      end: 63
+    - source: src
+      style: secondary
+      start: 21
+      end: 24
+    - source: ./script.sh
+      style: secondary
+      start: 27
+      end: 38
+    - source: src = ./script.sh;
+      style: secondary
+      start: 21
+      end: 39
