@@ -39,11 +39,13 @@ def main [path: string] {
                          pkgs/build-support/replace-vars/replace-vars.nix
                          pkgs/test/replace-vars/default.nix
                          # expression as source file
+                         nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
                          pkgs/applications/editors/emacs/make-emacs.nix
                          pkgs/applications/science/logic/z3/default.nix
                          pkgs/development/compilers/llvm/common/default.nix
                          pkgs/development/tools/ocaml/merlin/4.x.nix
                          # expression generating replacements
+                         nixos/modules/installer/tools/tools.nix
                          pkgs/development/python-modules/pysdl2/default.nix
                          pkgs/kde/plasma/kinfocenter/default.nix
                      ] | any {|exclusion| $match.file | str ends-with $exclusion }) {
