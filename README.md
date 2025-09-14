@@ -7,6 +7,8 @@ It uses [devenv.sh](https://devenv.sh/).
 
 - Run `no-substitute-all <path-to-nixpkgs> --write` to get rid of the evil `substituteAll`.
   At least the nix-variant of it.
+- Run `remove-meta-with-lib <path-to-nixpkgs> --write` to remove `with lib;` from
+  `meta`.
 - Run `lint-replace-vars <path-to-nixpkgs>` to confirm that nobody uses `replaceVars`
   in a way they really shouldn't.
 - Run `build-replace-vars <path-to-nixpkgs>` to build all `replaceVars` derivations

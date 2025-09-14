@@ -1,0 +1,162 @@
+id: prefix-meta-lib-maintainers
+language: nix
+
+rule:
+  pattern: maintainers
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "maintainers"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^maintainers$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+
+fix: lib.maintainers
+
+---
+
+id: prefix-meta-lib-teams
+language: nix
+
+rule:
+  pattern: teams
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "teams"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^teams$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+
+fix: lib.teams
+
+---
+
+id: prefix-meta-lib-licenses
+language: nix
+
+rule:
+  pattern: licenses
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "licenses"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^license$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+
+fix: lib.licenses
+
+---
+
+id: prefix-meta-lib-platforms
+language: nix
+
+rule:
+  pattern: platforms
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "platforms"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^platforms$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+
+fix: lib.platforms
+
+---
+
+id: prefix-meta-lib-sourceTypes
+language: nix
+
+rule:
+  pattern: sourceTypes
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "sourceTypes"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^sourceProvenance$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+
+fix: lib.sourceTypes

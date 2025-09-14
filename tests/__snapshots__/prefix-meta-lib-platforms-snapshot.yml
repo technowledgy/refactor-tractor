@@ -1,0 +1,104 @@
+id: prefix-meta-lib-platforms
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        platforms = [ platforms.unix ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          platforms = [ lib.platforms.unix ];
+        };
+      }
+    labels:
+    - source: platforms
+      style: primary
+      start: 41
+      end: 50
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            platforms = [ platforms.unix ];
+          }
+      style: secondary
+      start: 11
+      end: 62
+    - source: |-
+        meta = with lib; {
+            platforms = [ platforms.unix ];
+          };
+      style: secondary
+      start: 4
+      end: 63
+    - source: platforms
+      style: secondary
+      start: 27
+      end: 36
+    - source: platforms = [ platforms.unix ];
+      style: secondary
+      start: 27
+      end: 58
+    - source: platforms
+      style: secondary
+      start: 41
+      end: 50
+  ? |
+    {
+      meta = with lib; {
+        platforms = with platforms; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          platforms = with lib.platforms; [];
+        };
+      }
+    labels:
+    - source: platforms
+      style: primary
+      start: 44
+      end: 53
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            platforms = with platforms; [];
+          }
+      style: secondary
+      start: 11
+      end: 62
+    - source: |-
+        meta = with lib; {
+            platforms = with platforms; [];
+          };
+      style: secondary
+      start: 4
+      end: 63
+    - source: platforms
+      style: secondary
+      start: 27
+      end: 36
+    - source: platforms = with platforms; [];
+      style: secondary
+      start: 27
+      end: 58
+    - source: platforms
+      style: secondary
+      start: 44
+      end: 53

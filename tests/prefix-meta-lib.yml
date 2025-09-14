@@ -1,0 +1,217 @@
+id: prefix-meta-lib-maintainers
+valid:
+# Should not match outside meta block
+- |
+  with lib; {
+    maintainers = with maintainers; [];
+  }
+# Should not match outside maintainers attribute
+- |
+  {
+    meta = with lib; {
+      foo = with maintainers; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with lib; {
+      maintainers = with lib.maintainers; [];
+    };
+  }
+# Should not match without "with lib;"
+- |
+  {
+    meta = {
+      maintainers = with maintainers; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      maintainers = with maintainers; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
+      maintainers = [ maintainers.nobody ];
+    };
+  }
+
+---
+
+id: prefix-meta-lib-teams
+valid:
+# Should not match outside meta block
+- |
+  with lib; {
+    teams = with teams; [];
+  }
+# Should not match outside teams attribute
+- |
+  {
+    meta = with lib; {
+      foo = with teams; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with lib; {
+      teams = with lib.teams; [];
+    };
+  }
+# Should not match without "with lib;"
+- |
+  {
+    meta = {
+      teams = with teams; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      teams = with teams; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
+      teams = [ teams.lisp ];
+    };
+  }
+
+---
+
+id: prefix-meta-lib-licenses
+valid:
+# Should not match outside meta block
+- |
+  with lib; {
+    license = with licenses; [];
+  }
+# Should not match outside license attribute
+- |
+  {
+    meta = with lib; {
+      foo = with licenses; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with lib; {
+      license = with lib.licenses; [];
+    };
+  }
+# Should not match without "with lib;"
+- |
+  {
+    meta = {
+      license = with licenses; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      license = with licenses; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
+      license = [ licenses.bsd ];
+    };
+  }
+
+---
+
+id: prefix-meta-lib-platforms
+valid:
+# Should not match outside meta block
+- |
+  with lib; {
+    platforms = with platforms; [];
+  }
+# Should not match outside platforms attribute
+- |
+  {
+    meta = with lib; {
+      foo = with platforms; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with lib; {
+      platforms = with lib.platforms; [];
+    };
+  }
+# Should not match without "with lib;"
+- |
+  {
+    meta = {
+      platforms = with platforms; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      platforms = with platforms; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
+      platforms = [ platforms.unix ];
+    };
+  }
+
+---
+
+id: prefix-meta-lib-sourceTypes
+valid:
+# Should not match outside meta block
+- |
+  with lib; {
+    sourceProvenance = with sourceTypes; [];
+  }
+# Should not match outside sourceProvenance attribute
+- |
+  {
+    meta = with lib; {
+      foo = with sourceTypes; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with lib; {
+      sourceProvenance = with lib.sourceTypes; [];
+    };
+  }
+# Should not match without "with lib;"
+- |
+  {
+    meta = {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
+      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    };
+  }
