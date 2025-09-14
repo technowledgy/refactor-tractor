@@ -58,6 +58,7 @@ in
     ast-grep
     git
     nushell
+    nixf-diagnose
   ];
 
   languages.nix.enable = true;
@@ -101,6 +102,37 @@ in
     binary = "nu";
   };
 
+  scripts.remove-meta-with-lib = {
+    exec = ''
+      def main [nixpkgs: string, --write (-w)] {
+          if $write {
+              ast-grep scan --rule rules/prefix-meta-lib.yml $nixpkgs --update-all
+
+              cd $nixpkgs
+
+              # nixf-diagnose's auto-fix can only make one change per run and fails for remaining issues.
+              # We run it in a loop until it passes.
+              git diff --name-only | lines | par-each { |it|
+                  while (true) {
+                      try {
+                          nixf-diagnose --auto-fix --only sema-extra-with $it
+                          break
+                      }
+                  }
+              }
+
+              # `with lib;` auto-fix leaves spurious spaces, reformat the tree
+              nix fmt
+          } else {
+              ast-grep scan --rule rules/prefix-meta-lib.yml $nixpkgs
+          }
+      }
+    '';
+    package = pkgs.nushell;
+    binary = "nu";
+    description = "Prefix references to various lib-things in `meta` with `lib.`.";
+  };
+
   enterShell = ''
     ln -sf ${sgconfig} sgconfig.yml
 
@@ -109,6 +141,8 @@ in
     echo "  no-substitute-all <path-to-nixpkgs> --write"
     echo "  lint-replace-vars <path-to-nixpkgs>"
     echo "  build-replace-vars <path-to-nixpkgs>"
+    echo "  remove-meta-with-lib <path-to-nixpkgs>"
+    echo "  remove-meta-with-lib <path-to-nixpkgs> --write"
   '';
 
   enterTest = ''

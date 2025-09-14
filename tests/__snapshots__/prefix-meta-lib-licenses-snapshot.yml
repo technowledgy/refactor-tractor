@@ -1,0 +1,104 @@
+id: prefix-meta-lib-licenses
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        license = [ licenses.bsd ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          license = [ lib.licenses.bsd ];
+        };
+      }
+    labels:
+    - source: licenses
+      style: primary
+      start: 39
+      end: 47
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            license = [ licenses.bsd ];
+          }
+      style: secondary
+      start: 11
+      end: 58
+    - source: |-
+        meta = with lib; {
+            license = [ licenses.bsd ];
+          };
+      style: secondary
+      start: 4
+      end: 59
+    - source: license
+      style: secondary
+      start: 27
+      end: 34
+    - source: license = [ licenses.bsd ];
+      style: secondary
+      start: 27
+      end: 54
+    - source: licenses
+      style: secondary
+      start: 39
+      end: 47
+  ? |
+    {
+      meta = with lib; {
+        license = with licenses; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          license = with lib.licenses; [];
+        };
+      }
+    labels:
+    - source: licenses
+      style: primary
+      start: 42
+      end: 50
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            license = with licenses; [];
+          }
+      style: secondary
+      start: 11
+      end: 59
+    - source: |-
+        meta = with lib; {
+            license = with licenses; [];
+          };
+      style: secondary
+      start: 4
+      end: 60
+    - source: license
+      style: secondary
+      start: 27
+      end: 34
+    - source: license = with licenses; [];
+      style: secondary
+      start: 27
+      end: 55
+    - source: licenses
+      style: secondary
+      start: 42
+      end: 50

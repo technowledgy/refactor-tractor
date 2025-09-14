@@ -1,0 +1,104 @@
+id: prefix-meta-lib-teams
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        teams = [ teams.lisp ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          teams = [ lib.teams.lisp ];
+        };
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 37
+      end: 42
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            teams = [ teams.lisp ];
+          }
+      style: secondary
+      start: 11
+      end: 54
+    - source: |-
+        meta = with lib; {
+            teams = [ teams.lisp ];
+          };
+      style: secondary
+      start: 4
+      end: 55
+    - source: teams
+      style: secondary
+      start: 27
+      end: 32
+    - source: teams = [ teams.lisp ];
+      style: secondary
+      start: 27
+      end: 50
+    - source: teams
+      style: secondary
+      start: 37
+      end: 42
+  ? |
+    {
+      meta = with lib; {
+        teams = with teams; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          teams = with lib.teams; [];
+        };
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 40
+      end: 45
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            teams = with teams; [];
+          }
+      style: secondary
+      start: 11
+      end: 54
+    - source: |-
+        meta = with lib; {
+            teams = with teams; [];
+          };
+      style: secondary
+      start: 4
+      end: 55
+    - source: teams
+      style: secondary
+      start: 27
+      end: 32
+    - source: teams = with teams; [];
+      style: secondary
+      start: 27
+      end: 50
+    - source: teams
+      style: secondary
+      start: 40
+      end: 45

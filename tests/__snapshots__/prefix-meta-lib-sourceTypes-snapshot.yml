@@ -1,0 +1,104 @@
+id: prefix-meta-lib-sourceTypes
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        sourceProvenance = [ sourceTypes.binaryNativeCode ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        };
+      }
+    labels:
+    - source: sourceTypes
+      style: primary
+      start: 48
+      end: 59
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            sourceProvenance = [ sourceTypes.binaryNativeCode ];
+          }
+      style: secondary
+      start: 11
+      end: 83
+    - source: |-
+        meta = with lib; {
+            sourceProvenance = [ sourceTypes.binaryNativeCode ];
+          };
+      style: secondary
+      start: 4
+      end: 84
+    - source: sourceProvenance
+      style: secondary
+      start: 27
+      end: 43
+    - source: sourceProvenance = [ sourceTypes.binaryNativeCode ];
+      style: secondary
+      start: 27
+      end: 79
+    - source: sourceTypes
+      style: secondary
+      start: 48
+      end: 59
+  ? |
+    {
+      meta = with lib; {
+        sourceProvenance = with sourceTypes; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          sourceProvenance = with lib.sourceTypes; [];
+        };
+      }
+    labels:
+    - source: sourceTypes
+      style: primary
+      start: 51
+      end: 62
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            sourceProvenance = with sourceTypes; [];
+          }
+      style: secondary
+      start: 11
+      end: 71
+    - source: |-
+        meta = with lib; {
+            sourceProvenance = with sourceTypes; [];
+          };
+      style: secondary
+      start: 4
+      end: 72
+    - source: sourceProvenance
+      style: secondary
+      start: 27
+      end: 43
+    - source: sourceProvenance = with sourceTypes; [];
+      style: secondary
+      start: 27
+      end: 67
+    - source: sourceTypes
+      style: secondary
+      start: 51
+      end: 62
