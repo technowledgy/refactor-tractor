@@ -9,11 +9,6 @@ let
     - rules
     testConfigs:
     - testDir: tests
-    customLanguages:
-      nix:
-        libraryPath: ${pkgs.vimPlugins.nvim-treesitter-parsers.nix}/parser/nix.so
-        extensions: [nix]
-        expandoChar: _
     languageInjections:
     - hostLanguage: nix
       injected: bash
