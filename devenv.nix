@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -52,13 +53,23 @@ let
                     field: argument
                     regex: '\.(sh|bash)"$'
   '';
+
+  pkgsNixd = inputs.nixd-with-lib.packages.${pkgs.stdenv.system};
+  inherit (pkgsNixd) nixf;
 in
 {
   packages = with pkgs; [
     ast-grep
     git
     nushell
-    nixf-diagnose
+    (
+      (nixf-diagnose.override {
+        inherit nixf;
+      }).overrideAttrs
+      (old: {
+        env.NIXF_TIDY_PATH = "${lib.getBin nixf}/bin/nixf-tidy";
+      })
+    )
   ];
 
   languages.nix.enable = true;

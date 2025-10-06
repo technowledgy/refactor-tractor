@@ -1,4 +1,7 @@
 # yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
 inputs:
+  nixd-with-lib:
+    # https://github.com/nix-community/nixd/pull/719
+    url: github:booxter/nixd/use-nixpkgs-to-resolve-lib-pkgs
   nixpkgs:
     url: github:nixos/nixpkgs/nixpkgs-unstable
