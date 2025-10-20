@@ -95,6 +95,12 @@ in
     description = "Check whether all uses of replaceVars and replaceVarsWith build fine with their replacements.";
   };
 
+  scripts.migrate-callPackage = {
+    exec = builtins.readFile ./scripts/migrate-callPackage.nu;
+    package = pkgs.nushell;
+    binary = "nu";
+  };
+
   enterShell = ''
     ln -sf ${sgconfig} sgconfig.yml
 
