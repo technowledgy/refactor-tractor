@@ -31,9 +31,6 @@ def main [path: string] {
     | where file =~ $"/by-name/($it.name | str substring 0..1)/($it.name)/package.nix"
     | each {|match|
         let bindings = $match.args | binding
-        if ($bindings | any {|it| $it.value =~ "\\."}) {
-          return
-        }
 
         let file = $path | path dirname | path join $match.file
 
