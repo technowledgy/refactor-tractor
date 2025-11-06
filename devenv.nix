@@ -115,27 +115,20 @@ in
 
   scripts.remove-meta-with-lib = {
     exec = ''
-      def main [nixpkgs: string, --write (-w)] {
+      def main [file: string, --write (-w)] {
           if $write {
-              ast-grep scan --rule rules/prefix-meta-lib.yml $nixpkgs --update-all
-
-              cd $nixpkgs
+              ast-grep scan --rule rules/prefix-meta-lib.yml $file --update-all
 
               # nixf-diagnose's auto-fix can only make one change per run and fails for remaining issues.
               # We run it in a loop until it passes.
-              git diff --name-only | lines | par-each { |it|
-                  while (true) {
-                      try {
-                          nixf-diagnose --auto-fix --only sema-extra-with $it
-                          break
-                      }
+              while (true) {
+                  try {
+                      nixf-diagnose --auto-fix --only sema-extra-with $file
+                      break
                   }
               }
-
-              # `with lib;` auto-fix leaves spurious spaces, reformat the tree
-              nix fmt
           } else {
-              ast-grep scan --rule rules/prefix-meta-lib.yml $nixpkgs
+              ast-grep scan --rule rules/prefix-meta-lib.yml $file
           }
       }
     '';
