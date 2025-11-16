@@ -26,6 +26,15 @@ valid:
       maintainers = with maintainers; [];
     };
   }
+# Should not match with `let` binding
+- |
+  let
+    maintainers = [ "alice" "bob" ];
+  in {
+    meta = with lib; {
+      maintainers = maintainers;
+    };
+  }
 invalid:
 - |
   {
@@ -68,6 +77,15 @@ valid:
   {
     meta = {
       teams = with teams; [];
+    };
+  }
+# Should not match with `let` binding
+- |
+  let
+    teams = [ teams.lisp teams.haskell ];
+  in {
+    meta = with lib; {
+      teams = teams;
     };
   }
 invalid:
@@ -114,6 +132,15 @@ valid:
       license = with licenses; [];
     };
   }
+# Should not match with `let` binding
+- |
+  let
+    licenses = [ licenses.bsd licenses.mit ];
+  in {
+    meta = with lib; {
+      license = licenses;
+    };
+  }
 invalid:
 - |
   {
@@ -158,6 +185,15 @@ valid:
       platforms = with platforms; [];
     };
   }
+# Should not match with `let` binding
+- |
+  let
+    platforms = [ platforms.linux platforms.darwin ];
+  in {
+    meta = with lib; {
+      platforms = platforms;
+    };
+  }
 invalid:
 - |
   {
@@ -200,6 +236,15 @@ valid:
   {
     meta = {
       sourceProvenance = with sourceTypes; [];
+    };
+  }
+# Should not match with `let` binding
+- |
+  let
+    sourceTypes = [ sourceTypes.sourceArchive sourceTypes.gitRepository ];
+  in {
+    meta = with lib; {
+      sourceProvenance = sourceTypes;
     };
   }
 invalid:
