@@ -26,6 +26,17 @@ rule:
             has:
               field: environment
               regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^maintainers$
 
 fix: lib.maintainers
 
@@ -59,6 +70,17 @@ rule:
             has:
               field: environment
               regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^teams$
 
 fix: lib.teams
 
@@ -92,6 +114,17 @@ rule:
             has:
               field: environment
               regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^licenses$
 
 fix: lib.licenses
 
@@ -125,6 +158,17 @@ rule:
             has:
               field: environment
               regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^platforms$
 
 fix: lib.platforms
 
@@ -158,5 +202,16 @@ rule:
             has:
               field: environment
               regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^sourceTypes$
 
 fix: lib.sourceTypes
