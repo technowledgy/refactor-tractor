@@ -1,0 +1,53 @@
+id: prefix-meta-lib-badPlatforms
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        badPlatforms = [ platforms.unix ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          badPlatforms = [ lib.platforms.unix ];
+        };
+      }
+    labels:
+    - source: platforms
+      style: primary
+      start: 44
+      end: 53
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            badPlatforms = [ platforms.unix ];
+          }
+      style: secondary
+      start: 11
+      end: 65
+    - source: |-
+        meta = with lib; {
+            badPlatforms = [ platforms.unix ];
+          };
+      style: secondary
+      start: 4
+      end: 66
+    - source: badPlatforms
+      style: secondary
+      start: 27
+      end: 39
+    - source: badPlatforms = [ platforms.unix ];
+      style: secondary
+      start: 27
+      end: 61
+    - source: platforms
+      style: secondary
+      start: 44
+      end: 53
