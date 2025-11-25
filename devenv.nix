@@ -126,7 +126,7 @@ in
               git diff --name-only | lines | par-each { |it|
                   while (true) {
                       try {
-                          nixf-diagnose --auto-fix --only sema-extra-with $it
+                          NIX_PATH=$"nixpkgs=($nixpkgs)" nixf-diagnose --auto-fix --only sema-extra-with $it
                           break
                       }
                   }
