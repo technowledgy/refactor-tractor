@@ -123,7 +123,12 @@ in
 
               # nixf-diagnose's auto-fix can only make one change per run and fails for remaining issues.
               # We run it in a loop until it passes.
-              git diff --name-only | lines | par-each { |it|
+              (
+                  git diff --name-only | lines
+                  | append (git grep --name-only 'meta = with' | lines)
+                  | sort
+                  | uniq
+              ) | par-each { |it|
                   while (true) {
                       try {
                           NIX_PATH=$"nixpkgs=($nixpkgs)" nixf-diagnose --auto-fix --only sema-extra-with $it
