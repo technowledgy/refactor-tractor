@@ -221,6 +221,17 @@ invalid:
 
 ---
 
+id: prefix-meta-lib-badPlatforms
+invalid:
+- |
+  {
+    meta = with lib; {
+      badPlatforms = [ platforms.unix ];
+    };
+  }
+
+---
+
 id: prefix-meta-lib-sourceTypes
 valid:
 # Should not match outside meta block
