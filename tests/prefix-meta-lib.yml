@@ -232,6 +232,17 @@ invalid:
 
 ---
 
+id: prefix-meta-lib-hydraPlatforms
+invalid:
+- |
+  {
+    meta = with lib; {
+      hydraPlatforms = [ platforms.unix ];
+    };
+  }
+
+---
+
 id: prefix-meta-lib-sourceTypes
 valid:
 # Should not match outside meta block

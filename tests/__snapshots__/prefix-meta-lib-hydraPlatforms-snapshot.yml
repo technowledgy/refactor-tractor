@@ -1,0 +1,53 @@
+id: prefix-meta-lib-hydraPlatforms
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        hydraPlatforms = [ platforms.unix ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          hydraPlatforms = [ lib.platforms.unix ];
+        };
+      }
+    labels:
+    - source: platforms
+      style: primary
+      start: 46
+      end: 55
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            hydraPlatforms = [ platforms.unix ];
+          }
+      style: secondary
+      start: 11
+      end: 67
+    - source: |-
+        meta = with lib; {
+            hydraPlatforms = [ platforms.unix ];
+          };
+      style: secondary
+      start: 4
+      end: 68
+    - source: hydraPlatforms
+      style: secondary
+      start: 27
+      end: 41
+    - source: hydraPlatforms = [ platforms.unix ];
+      style: secondary
+      start: 27
+      end: 63
+    - source: platforms
+      style: secondary
+      start: 46
+      end: 55
