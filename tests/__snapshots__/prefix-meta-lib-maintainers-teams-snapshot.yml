@@ -1,0 +1,53 @@
+id: prefix-meta-lib-maintainers-teams
+snapshots:
+  ? |
+    {
+      meta = with lib; {
+        maintainers = [ teams.darwin ];
+      };
+    }
+  : fixed: |
+      {
+        meta = with lib; {
+          maintainers = [ lib.teams.darwin ];
+        };
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 43
+      end: 48
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: lib
+      style: secondary
+      start: 16
+      end: 19
+    - source: |-
+        with lib; {
+            maintainers = [ teams.darwin ];
+          }
+      style: secondary
+      start: 11
+      end: 62
+    - source: |-
+        meta = with lib; {
+            maintainers = [ teams.darwin ];
+          };
+      style: secondary
+      start: 4
+      end: 63
+    - source: maintainers
+      style: secondary
+      start: 27
+      end: 38
+    - source: maintainers = [ teams.darwin ];
+      style: secondary
+      start: 27
+      end: 58
+    - source: teams
+      style: secondary
+      start: 43
+      end: 48
