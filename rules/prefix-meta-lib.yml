@@ -262,6 +262,50 @@ fix: lib.platforms
 
 ---
 
+id: prefix-meta-lib-hydraPlatforms
+language: nix
+
+rule:
+  pattern: platforms
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "platforms"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^hydraPlatforms$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^platforms$
+
+fix: lib.platforms
+
+---
+
 id: prefix-meta-lib-sourceTypes
 language: nix
 
