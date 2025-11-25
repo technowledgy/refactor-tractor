@@ -42,6 +42,50 @@ fix: lib.maintainers
 
 ---
 
+id: prefix-meta-lib-maintainers-teams
+language: nix
+
+rule:
+  pattern: teams
+  kind: identifier
+  inside:
+    # variable_expression is a non-prefixed occurence of "teams"
+    kind: variable_expression
+    inside:
+      stopBy: end
+      kind: binding
+      has:
+        field: attrpath
+        regex: ^maintainers$
+      inside:
+        stopBy: end
+        kind: binding
+        all:
+        - has:
+            field: attrpath
+            regex: ^meta$
+        - has:
+            field: expression
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^lib$
+  not:
+    inside:
+      stopBy: end
+      kind: let_expression
+      has:
+        kind: binding_set
+        has:
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^teams$
+
+fix: lib.teams
+
+---
+
 id: prefix-meta-lib-teams
 language: nix
 

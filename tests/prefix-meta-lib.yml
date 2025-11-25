@@ -51,6 +51,17 @@ invalid:
 
 ---
 
+id: prefix-meta-lib-maintainers-teams
+invalid:
+- |
+  {
+    meta = with lib; {
+      maintainers = [ teams.darwin ];
+    };
+  }
+
+---
+
 id: prefix-meta-lib-teams
 valid:
 # Should not match outside meta block
